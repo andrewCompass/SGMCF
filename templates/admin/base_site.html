@@ -31,6 +31,9 @@ a.update {
         &:hover a.update {
             display: block;
         }
+    {% if request.path == '/admin/login/' %}
+        display: none;
+    {% endif %}
     }
     .temperatura h3 {
         font-size: 25px;

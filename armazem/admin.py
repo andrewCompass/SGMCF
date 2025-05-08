@@ -18,7 +18,7 @@ class CategoriaAdmin(admin.ModelAdmin):
 
 @admin.register(Produto)
 class ProdutoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nome', 'categoria', 'preco')
+    list_display = ('id', 'nome', 'categoria')
     search_fields = ('nome',)
     list_filter = ('categoria',)
     ordering = ('nome',)
@@ -57,7 +57,6 @@ class ApprovalForm(forms.Form):
         widget=forms.NumberInput(attrs={'class': 'form-control'})
     )
 
-
 @admin.register(Estoque)
 class EstoqueAdmin(ModalActionMixin, admin.ModelAdmin):
     list_display = ('produto', 'quantidade')
@@ -65,9 +64,7 @@ class EstoqueAdmin(ModalActionMixin, admin.ModelAdmin):
     ordering = ('produto__nome',)
     list_per_page = 10
     empty_value_display = '- vazio -'
-
-    # def has_change_permission(self, request, obj=None):
-    #     return False
+    readonly_fields = ('quantidade',)
 
     modal_actions = ["alterar"]
 
@@ -91,10 +88,10 @@ class EstoqueAdmin(ModalActionMixin, admin.ModelAdmin):
             estoque_individual.quantidade += quantidade
         else:
             if obj.quantidade < quantidade:
-                return self.message_user(request, "Quantidade insuficiente no estoque.", level='error')
+                raise forms.ValidationError("Quantidade insuficiente no estoque.")
 
             if estoque_individual.quantidade < quantidade:
-                return self.message_user(request, "Quantidade insuficiente no estoque individual.", level='error')
+                raise forms.ValidationError("Quantidade insuficiente no estoque individual.")
 
             estoque_individual.quantidade -= quantidade
             obj.quantidade -= quantidade

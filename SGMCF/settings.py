@@ -80,9 +80,9 @@ WSGI_APPLICATION = 'SGMCF.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sgmcf_db',
+        'NAME': 'db',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': 'mariadbrootPW',
         'HOST': 'localhost',
         'PORT': '3306',
     }

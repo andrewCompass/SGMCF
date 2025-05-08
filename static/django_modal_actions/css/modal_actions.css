@@ -152,7 +152,7 @@
 #dma-modal-action form select,
 #dma-modal-action form textarea {
   width: 100%;
-  padding: 10px 12px;
+  /*padding: 10px 12px;*/
   border: 1px solid var(--border-color);
   border-radius: 4px;
   box-sizing: border-box;
